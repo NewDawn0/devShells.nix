@@ -7,6 +7,7 @@ pkgs.mkShell {
     cargo-make
     cargo-update
     cargo-workspaces
+    rust-cbindgen
     rustup
   ];
 }
