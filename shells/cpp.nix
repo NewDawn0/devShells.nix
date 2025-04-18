@@ -1,5 +1,5 @@
 { pkgs }:
 pkgs.mkShell {
   name = "cpp";
-  packages = with pkgs; [ gcc gnumake libcxxStdenv clang clang-tools ];
+  packages = with pkgs; [ clang clang-tools gcc gdb gnumake libcxxStdenv ];
 }
