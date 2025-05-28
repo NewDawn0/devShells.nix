@@ -1,7 +1,13 @@
 {
-  description = "Your awesome flake";
+  description = "Development shells for nix";
 
-  inputs.utils.url = "github:NewDawn0/nixUtils";
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs";
+    utils = {
+      url = "github:NewDawn0/nixUtils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   outputs = { utils, ... }: {
     devShells = utils.lib.eachSystem { } (pkgs:
