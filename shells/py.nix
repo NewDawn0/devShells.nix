@@ -3,20 +3,16 @@ pkgs.mkShell {
   name = "python";
   packages = [
     (pkgs.python3.withPackages (p:
-      with p;
-      [
+      with p; [
         # ML
+        numpy
+        opencv-python
+        pandas
+        pillow
+        scikit-learn
         # keras
-        # numpy
-        # opencv-python
-        # pandas
-        # pillow
-        # scikit-learn
         # tensorflow
         # torchaudio
-
-        # Rust
-        maturin
       ]))
   ];
 }
