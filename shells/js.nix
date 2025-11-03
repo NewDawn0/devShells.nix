@@ -4,6 +4,8 @@ pkgs.mkShell {
   packages = with pkgs; [
     nodePackages.live-server
     nodePackages.nodemon
+    nodePackages.npm
     nodejs
+    typescript
   ];
 }
