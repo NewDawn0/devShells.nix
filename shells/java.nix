@@ -1,5 +1,5 @@
-{ pkgs }:
+{pkgs}:
 pkgs.mkShell {
   name = "java";
-  packages = with pkgs; [ gradle maven openjdk ];
+  packages = with pkgs; [gradle maven openjdk];
 }

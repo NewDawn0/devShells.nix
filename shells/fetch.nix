@@ -1,4 +1,4 @@
-{ pkgs }:
+{pkgs}:
 pkgs.mkShell {
   name = "fetch";
   packages = with pkgs; [

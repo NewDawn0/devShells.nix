@@ -1,5 +1,5 @@
-{ pkgs }:
+{pkgs}:
 pkgs.mkShell {
   name = "zig";
-  packages = with pkgs; [ zig ];
+  packages = with pkgs; [zig];
 }
