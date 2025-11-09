@@ -11,5 +11,7 @@ pkgs.mkShell {
     maturin
     rust-cbindgen
     rustup
+    wabt
+    wasm-pack
   ];
 }
