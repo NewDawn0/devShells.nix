@@ -1,44 +1,5 @@
 {
   "nodes": {
-    "nix-systems": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
-    "nix-utils": {
-      "inputs": {
-        "nix-systems": "nix-systems",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "nixpkgs-unstable": [
-          "nixpkgs-unstable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1762691102,
-        "narHash": "sha256-99YlLPUFB6nJaK6rz8LxHqZQoACfO4vPDFFL29Zo1vs=",
-        "owner": "NewDawn0",
-        "repo": "nixUtils",
-        "rev": "b97341164c9d94159356068896a875e6ddf4414f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NewDawn0",
-        "repo": "nixUtils",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1748026580,
@@ -55,27 +16,30 @@
         "type": "github"
       }
     },
-    "nixpkgs-unstable": {
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "utils": "utils"
+      }
+    },
+    "utils": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
       "locked": {
-        "lastModified": 1762596750,
-        "narHash": "sha256-rXXuz51Bq7DHBlfIjN7jO8Bu3du5TV+3DSADBX7/9YQ=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "b6a8526db03f735b89dd5ff348f53f752e7ddc8e",
+        "lastModified": 1763015150,
+        "narHash": "sha256-oozfpD14IEiTMMqr7fNGfzzoBzWJiuNxh2Twnzu1Mkg=",
+        "owner": "NewDawn0",
+        "repo": "nixUtils",
+        "rev": "18a4515bf3be337612c675b5bfb0ce70d04c9c06",
         "type": "github"
       },
       "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
+        "owner": "NewDawn0",
+        "repo": "nixUtils",
         "type": "github"
-      }
-    },
-    "root": {
-      "inputs": {
-        "nix-utils": "nix-utils",
-        "nixpkgs": "nixpkgs",
-        "nixpkgs-unstable": "nixpkgs-unstable"
       }
     }
   },
