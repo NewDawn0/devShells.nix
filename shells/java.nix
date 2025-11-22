@@ -1,5 +1,11 @@
-{pkgs}:
+{ pkgs }:
 pkgs.mkShell {
   name = "java";
-  packages = with pkgs; [gradle maven openjdk];
+  packages = with pkgs; [
+    fastjar
+    gradle
+    maven
+    openjdk
+    jdk24
+  ];
 }
