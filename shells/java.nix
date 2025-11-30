@@ -6,6 +6,6 @@ pkgs.mkShell {
     gradle
     maven
     openjdk
-    jdk24
+    jdk25
   ];
 }

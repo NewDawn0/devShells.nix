@@ -2,7 +2,7 @@
 pkgs.mkShell {
   name = "js";
   packages = with pkgs; [
-    nodePackages.live-server
+    live-server
     nodePackages.nodemon
     nodePackages.npm
     nodejs
