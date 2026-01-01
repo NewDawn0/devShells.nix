@@ -8,7 +8,21 @@
     self,
     utils,
     ...
-  }: {
+  }: let
+    concatWith = fk: fv: target: builtins.foldl' (xs: x: xs // {"${fk x}" = fv x;}) {} target;
+    shells = with builtins; attrNames (readDir ./shells);
+    fn = pkgs: {
+      name = pkgs.lib.removeSuffix ".nix";
+      toPkg = x: pkgs.callPackage ./shells/${x} {};
+      toEnv = x: let
+        pkg = fn.toPkg x;
+      in
+        pkgs.buildEnv {
+          name = "dev-shell-env-${pkg.name}";
+          paths = pkg.nativeBuildInputs;
+        };
+    };
+  in {
     checks = utils.lib.eachSystem {} (
       p:
         with p; {
@@ -20,17 +34,26 @@
           } "typos --format brief && touch $out";
         }
     );
-    formatter = utils.lib.eachSystem {} (p: p.pkgs.alejandra);
-    overlays.default = _: prev: {
-      YOUR-PACKAGE = self.packages.${prev.system}.default;
+    lib = {
+      inherit concatWith shells fn;
     };
+    formatter = utils.lib.eachSystem {} (p: p.pkgs.alejandra);
+    overlays.default = _: prev: let
+      inherit (fn prev) name toEnv;
+    in {
+      dev-shell-env = concatWith name toEnv shells;
+    };
+    packages = utils.lib.eachSystem {} (
+      p: let
+        inherit (fn p.pkgs) name toPkg;
+      in
+        concatWith name toPkg shells
+    );
     devShells = utils.lib.eachSystem {} (
       p: let
-        shells = with builtins; attrNames (readDir ./shells);
-        name = p.pkgs.lib.removeSuffix ".nix";
-        pkg = x: p.pkgs.callPackage ./shells/${x} {};
+        inherit (fn p.pkgs) name toPkg;
       in
-        builtins.foldl' (xs: x: xs // {"${name x}" = pkg x;}) {} shells
+        concatWith name toPkg shells
     );
   };
 }

@@ -9,9 +9,10 @@ pkgs.mkShell {
     cargo-update
     cargo-workspaces
     maturin
+    openssl
+    pkg-config
     rust-cbindgen
     rustup
-    wabt
     wasm-pack
   ];
 }
