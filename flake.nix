@@ -4,24 +4,20 @@
   inputs = {
     utils.url = "github:NewDawn0/nixUtils";
   };
-  outputs = {
-    self,
-    utils,
-    ...
-  }: let
+  outputs = {utils, ...}: let
     concatWith = fk: fv: target: builtins.foldl' (xs: x: xs // {"${fk x}" = fv x;}) {} target;
     shells = with builtins; attrNames (readDir ./shells);
-    fn = pkgs: {
+    fn = pkgs: let
       name = pkgs.lib.removeSuffix ".nix";
       toPkg = x: pkgs.callPackage ./shells/${x} {};
       toEnv = x: let
-        pkg = fn.toPkg x;
+        pkg = toPkg x;
       in
         pkgs.buildEnv {
           name = "dev-shell-env-${pkg.name}";
           paths = pkg.nativeBuildInputs;
         };
-    };
+    in {inherit name toPkg toEnv;};
   in {
     checks = utils.lib.eachSystem {} (
       p:
@@ -34,9 +30,6 @@
           } "typos --format brief && touch $out";
         }
     );
-    lib = {
-      inherit concatWith shells fn;
-    };
     formatter = utils.lib.eachSystem {} (p: p.pkgs.alejandra);
     overlays.default = _: prev: let
       inherit (fn prev) name toEnv;
@@ -45,9 +38,9 @@
     };
     packages = utils.lib.eachSystem {} (
       p: let
-        inherit (fn p.pkgs) name toPkg;
+        inherit (fn p.pkgs) name toEnv;
       in
-        concatWith name toPkg shells
+        concatWith name toEnv shells
     );
     devShells = utils.lib.eachSystem {} (
       p: let
