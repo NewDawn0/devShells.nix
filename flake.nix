@@ -15,7 +15,8 @@
       in
         pkgs.buildEnv {
           name = "dev-shell-env-${pkg.name}";
-          paths = pkg.nativeBuildInputs;
+          paths = map pkgs.lib.lowPrio pkg.nativeBuildInputs;
+          ignoreCollisions = true;
         };
     in {inherit name toPkg toEnv;};
   in {
