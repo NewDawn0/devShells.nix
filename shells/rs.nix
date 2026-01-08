@@ -7,6 +7,7 @@ pkgs.mkShell {
     cargo-flamegraph
     cargo-make
     cargo-update
+    cargo-watch
     cargo-workspaces
     maturin
     openssl
